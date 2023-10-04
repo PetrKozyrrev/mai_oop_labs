@@ -36,7 +36,7 @@ Money::Money(const Money &other)
     for(int i{0};i<_size;++i) _array[i] = other._array[i];
 }
 
-// Move constructor
+// Rvalue constructor
 Money::Money(Money &&other) noexcept
 {
     _size = other._size;
@@ -44,6 +44,16 @@ Money::Money(Money &&other) noexcept
 
     other._size = 0;
     other._array = nullptr;
+}
+
+// Размер 
+int Money::get_size(){
+    return _size;
+}
+
+// Get Arrays
+unsigned char* Money::get_array(){
+    return _array;
 }
 
 // Равенство двух объектов

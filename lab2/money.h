@@ -13,6 +13,8 @@ public:
     Money(const Money& other);
     Money(Money&& other) noexcept;
     
+    int get_size();
+    unsigned char* get_array();
     Money add(const Money& other);
     Money remove(const Money& other);
     bool bigger(const Money& other);

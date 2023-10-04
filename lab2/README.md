@@ -249,7 +249,47 @@ Money::~Money() noexcept
 #include <gtest/gtest.h>
 #include "money.cpp"
 
-TEST(test01, basic_test_set)
+// Constructor
+
+TEST(constructor_test01, default_constructor)
+{
+    Money a = Money();
+
+    EXPECT_EQ(a.get_size(), 1);
+}
+
+TEST(constructor_test02, initializer_list_constructor)
+{
+    Money a {'1','1','1','1','1'};
+
+    EXPECT_EQ(a.get_size(), 5);
+}
+
+TEST(constructor_test03, string_constructor)
+{
+    std::string str = "11111";
+    Money a = Money(str);
+
+    EXPECT_EQ(a.get_size(), 5);
+}
+
+TEST(constructor_test04, copy_constructor)
+{
+    Money first {'1','1','1','1','1'};
+    Money second = Money(first);
+
+    EXPECT_EQ(second.get_size(), 5);
+}
+
+TEST(constructor_test05, rvalue_constructor)
+{
+    Money a = {"11111"};
+
+    EXPECT_EQ(a.get_size(), 5);
+}
+
+// Operators testing
+TEST(o_test01, basic_test_set)
 {
     Money a {"001"};
     Money b {'1'};
@@ -257,7 +297,7 @@ TEST(test01, basic_test_set)
     ASSERT_TRUE(c.equals(a.add(b)));
 }
 
-TEST(test02, basic_test_set)
+TEST(o_test02, basic_test_set)
 {
     Money a {"00005"};
     Money b {"00005"};
@@ -265,7 +305,7 @@ TEST(test02, basic_test_set)
     ASSERT_TRUE(c.equals(a.add(b)));
 }
 
-TEST(test03, basic_test_set)
+TEST(o_test03, basic_test_set)
 {
     Money a {"1111"};
     Money b {"19"};
@@ -273,7 +313,7 @@ TEST(test03, basic_test_set)
     ASSERT_TRUE(c.equals(a.add(b)));
 }
 
-TEST(test04, basic_test_set)
+TEST(o_test04, basic_test_set)
 {
     Money a {'0'};
     Money b {"12345"};
@@ -281,7 +321,7 @@ TEST(test04, basic_test_set)
     ASSERT_TRUE(c.equals(a.add(b)));
 }
 
-TEST(test05, basic_test_set)
+TEST(o_test05, basic_test_set)
 {
     Money a {"990001"};
     Money b {'1'};
@@ -289,7 +329,7 @@ TEST(test05, basic_test_set)
     ASSERT_TRUE(c.equals(a.add(b)));
 }
 
-TEST(test06, basic_test_set)
+TEST(o_test06, basic_test_set)
 {
     Money a {"1"};
     Money b {"005"};
@@ -300,7 +340,7 @@ TEST(test06, basic_test_set)
     }
 }
 
-TEST(test07, basic_test_set)
+TEST(o_test07, basic_test_set)
 {
     Money a {"00511"};
     Money b {"0051"};
@@ -308,7 +348,7 @@ TEST(test07, basic_test_set)
     ASSERT_TRUE(c.equals(a.remove(b)));
 }
 
-TEST(test08, basic_test_set)
+TEST(o_test08, basic_test_set)
 {
     Money a {"001"};
     Money b {'1'};
@@ -316,7 +356,7 @@ TEST(test08, basic_test_set)
     ASSERT_TRUE(c.equals(a.remove(b)));
 }
 
-TEST(test09, basic_test_set)
+TEST(o_test09, basic_test_set)
 {
     Money a {"123456"};
     Money b {"123456"};
@@ -324,7 +364,7 @@ TEST(test09, basic_test_set)
     ASSERT_TRUE(c.equals(a.remove(b)));
 }
 
-TEST(test10, basic_test_set)
+TEST(o_test10, basic_test_set)
 {
     Money a {"000000001"};
     Money b {'1'};
