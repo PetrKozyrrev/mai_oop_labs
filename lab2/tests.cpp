@@ -163,3 +163,12 @@ TEST(o_test10, basic_test_set)
     Money c {"99999999"};
     ASSERT_TRUE(c.equals(a.remove(b)));
 }
+
+TEST(o_test11, basic_test_set)
+{
+    // 0 + 6543.21 = 6543.21
+    Money a  = Money();
+    Money b {"123456"};
+    Money c {"123456"};
+    ASSERT_TRUE(c.equals(a.add(b)));
+}
