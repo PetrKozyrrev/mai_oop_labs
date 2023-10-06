@@ -8,13 +8,25 @@ Money::Money(): _size(1)
     _array[0] = '0';
 }
 
+// Fill constructor
+Money::Money(const size_t &n, unsigned char t)
+{
+    if(t < '0' or t > '9') throw std::logic_error("not digit input");
+    _array = new unsigned char[n];
+    for (int i{0}; i < n; ++i)
+        _array[i] = t;
+    _size = n;
+}
+
 // Initializer list constructor
 Money::Money(const std::initializer_list<unsigned char> &t)
 {
     _array = new unsigned char[t.size()];
     int i{0};
-    for (auto elem : t)
+    for (auto elem : t){
+        if(elem < '0' or elem > '9') throw std::logic_error("not digit input");
         _array[i++] = elem;
+    }
     _size = t.size();
 }
 
@@ -24,7 +36,10 @@ Money::Money(const std::string &t)
     _array = new unsigned char[t.size()];
     _size  = t.size();
 
-    for(int i{0}; i<_size; ++i) _array[i] = t[i];
+    for(int i{0}; i<_size; ++i){
+        if(t[i] < '0' or t[i] > '9') throw std::logic_error("not digit input");
+         _array[i] = t[i];
+    }
 }
 
 // Copy constructor
@@ -54,6 +69,16 @@ int Money::get_size(){
 // Get Arrays
 unsigned char* Money::get_array(){
     return _array;
+}
+
+std::string Money::get_string_value(){
+    std::string result = "";
+
+    for (int i{_size - 1}; i >= 0; --i) {
+        result += _array[i];
+    }
+
+    return result;
 }
 
 // Равенство двух объектов
@@ -134,7 +159,7 @@ Money Money::remove(const Money &other){
         _size = 1;
     }
     else if(!this->bigger(other)){
-        throw std::logic_error("negative balance");;
+        throw std::logic_error("negative balance");
     }
     else{
         unsigned char* _new_array = new unsigned char [_size];
