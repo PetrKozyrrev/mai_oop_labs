@@ -1,0 +1,8 @@
+# build folder
+build/
+
+# googletests
+googletest/
+
+# vscode
+.vscode/
