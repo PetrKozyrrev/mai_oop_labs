@@ -5,16 +5,17 @@
 
 class Figure{
 
-friend std::ostream& operator<<(std::ostream& out, const Figure& fig);
-friend std::istream& operator>>(std::istream& in, Figure& fig);
+    friend std::ostream& operator<<(std::ostream& out, const Figure& fig);
+    friend std::istream& operator>>(std::istream& in, Figure& fig);
 
 public:
     Figure() = default;
     Figure(double x, double y,double h,double r);
+    Figure(double h,double r);
     Figure(const Figure& other);
     ~Figure() = default;
 
-    explicit operator double()const{
+    virtual explicit operator double()const{
         return (_h * _r);
     }
 
@@ -49,7 +50,7 @@ public:
     double get_x();
     double get_y();
 
-private:
+protected:
     double _x{0.0};  // x coord;
     double _y{0.0};  // y coord;
     double _h{0.0};  // height;

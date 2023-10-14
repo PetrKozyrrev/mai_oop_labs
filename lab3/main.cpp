@@ -1,22 +1,15 @@
-#include<iostream>
+#include <iostream>
 #include "figure.h"
+#include "Trapezoid.h"
+#include "Rhombus.h"
 
 int main(){
-    Figure a(1,1,5,5);
-    std::cout << a << std::endl;
+    Trapezoid a(1,1,5,9,10);
+    Rhombus b(6,6,10,4);
+    
+    Figure array[] {a,b};
 
-    double s = (double)a;
-    std::cout << s << std::endl;
-
-    Figure b;
-    std::cin >> b;
-
-    std::cout << b << std::endl;
-
-    if(a==b){
-        std::cout << "TRUE" << std::endl;
-    }
-    else{
-        std::cout << "FALSE" << std::endl; 
+    for(int i=0;i<2;++i){
+        std::cout << (double)array[i] << std::endl;
     }
 }

@@ -2,6 +2,8 @@
 
 Figure::Figure(double x, double y, double h,double r): _x(x), _y(y), _h(h), _r(r) {};
 
+Figure::Figure(double h,double r): _x(0.0), _y(0.0), _h(h), _r(r) {};
+
 Figure::Figure(const Figure& other): _x(other._x),_y(other._y),_h(other._h), _r(other._r) {};
 
 double Figure::get_x(){
