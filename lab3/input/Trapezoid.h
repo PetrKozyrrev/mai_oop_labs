@@ -1,6 +1,6 @@
 #ifndef TRAP_H
 #define TRAP_H
-#include "figure.h"
+#include "Figure.h"
 
 class Trapezoid: public Figure{
 
@@ -8,52 +8,33 @@ class Trapezoid: public Figure{
     friend std::istream& operator>>(std::istream& in, Trapezoid& tr);
 
 public:
-    Trapezoid() = default;
+    Trapezoid();
     Trapezoid(double x, double y, double h, double r, double up_r);
     Trapezoid(double h, double r, double up_r);
     Trapezoid(const Trapezoid& other);
-    ~Trapezoid() = default;
+    ~Trapezoid();
 
     // площадь трапеции
-    virtual explicit operator double()const{
+    explicit operator double()const  override{
         return 0.5 * (_r + _up_r) * _h;
     }
 
-    Trapezoid& operator= (const Trapezoid& other){
-        if(this != & other){
-            _x = other._x;
-            _y = other._y;
-            _h = other._h;
-            _r = other._r;
-            _up_r = other._up_r;
-        }
-        return *this;
-    }
+    Trapezoid& operator= (const Trapezoid& other);
 
-    Trapezoid& operator= (Trapezoid&& other){
-        if(this != & other){
-            _x = other._x;
-            _y = other._y;
-            _h = other._h;
-            _r = other._r;
-            _up_r = other._up_r;
-        }
-        return *this;
-    }
+    Trapezoid& operator= (Trapezoid&& other);
 
-    bool operator== (Trapezoid& other){
-        if(_x == other._x and _y == other._y and _h == other._h and _r == other._r and _up_r == other._up_r){
-            return true;
-        }
-        return false;
-    }
+    bool operator== (Trapezoid& other);
+
+    void print() const override;
+
+    double square() const override;
 
 private:
     double _up_r{0.0};  // верхний радиус
 };
 
 inline std::ostream& operator<<(std::ostream& out, const Trapezoid& tr){
-    out << "Trapezoid[ x: " << tr._x << ", y: " << tr._y << ", height: " << tr._h
+    out << "TRAPEZOID [ x: " << tr._x << ", y: " << tr._y << ", height: " << tr._h
     << ", base radius: " << tr._r << ", up radius: " << tr._up_r << " ];" << std::endl;
 
     return out;
@@ -61,6 +42,8 @@ inline std::ostream& operator<<(std::ostream& out, const Trapezoid& tr){
 
 inline std::istream& operator>>(std::istream& in, Trapezoid& tr){
     double x, y, h ,r, up_r;
+
+    std::cout << "TRAPEZOID INPUT: " << std::endl;
 
     std::cout << "Enter x coord: ";
     in >> x;

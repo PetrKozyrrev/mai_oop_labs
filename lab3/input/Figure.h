@@ -9,46 +9,29 @@ class Figure{
     friend std::istream& operator>>(std::istream& in, Figure& fig);
 
 public:
-    Figure() = default;
+    Figure();
     Figure(double x, double y,double h,double r);
     Figure(double h,double r);
     Figure(const Figure& other);
-    ~Figure() = default;
+    ~Figure();
 
     virtual explicit operator double()const{
         return (_h * _r);
     }
 
-    Figure& operator= (const Figure& other){
-        if(this != & other){
-            _x = other._x;
-            _y = other._y;
-            _h = other._h;
-            _r = other._r;
-        }
-        return *this;
-    }
+    Figure& operator= (const Figure& other);
 
-    Figure& operator= (Figure&& other){
-        if(this != & other){
-            _x = other._x;
-            _y = other._y;
-            _h = other._h;
-            _r = other._r;
-        }
-        return *this;
-    }
+    Figure& operator= (Figure&& other);
 
-    bool operator== (Figure& other){
-        if(_x == other._x and _y == other._y and _h == other._h and _r == other._r){
-            return true;
-        }
-        return false;
-    }
+    bool operator== (Figure& other);
+
+    virtual void print() const = 0;
+
+    virtual double square() const = 0;
 
     // getters
-    double get_x();
-    double get_y();
+    virtual double get_x() const;
+    virtual double get_y() const;
 
 protected:
     double _x{0.0};  // x coord;
@@ -58,12 +41,14 @@ protected:
 };
 
 inline std::ostream& operator<<(std::ostream& out,const Figure& fig){
-    out << "Figure[ x:"<< fig._x << ", y: " << fig._y << " height: " << fig._h << " base radius: " << fig._r << " ];";
+    out << "FIGURE [ x: "<< fig._x << ", y: " << fig._y << " height: " << fig._h << " base radius: " << fig._r << " ];" << std::endl;
     return out;
 }
 
 inline std::istream& operator>>(std::istream& in, Figure& fig){
     double x, y, h ,r;
+
+    std::cout << "FIGURE INPUT: " << std::endl;
 
     std::cout << "Enter x coord: ";
     in >> x;

@@ -1,6 +1,6 @@
 #ifndef RHOBM_H
-#define RHOMB
-#include "figure.h"
+#define RHOMB_H
+#include "Figure.h"
 
 class Rhombus : public Figure{
 
@@ -10,46 +10,30 @@ class Rhombus : public Figure{
     using Figure::Figure;
 
 public:
-
+    Rhombus();
     Rhombus(const Rhombus& other);
-    ~Rhombus() = default;
+    ~Rhombus();
 
-    Rhombus& operator= (const Rhombus& other){
-        if(this != & other){
-            _x = other._x;
-            _y = other._y;
-            _h = other._h;
-            _r = other._r;
-        }
-        return *this;
-    }
+    Rhombus& operator= (const Rhombus& other);
 
-    Rhombus& operator= (Rhombus&& other){
-        if(this != & other){
-            _x = other._x;
-            _y = other._y;
-            _h = other._h;
-            _r = other._r;
-        }
-        return *this;
-    }
+    Rhombus& operator= (Rhombus&& other);
 
-    bool operator== (Rhombus& other){
-        if(_x == other._x and _y == other._y and _h == other._h and _r == other._r){
-            return true;
-        }
-        return false;
-    }
+    bool operator== (Rhombus& other);
+
+    void print() const override;
+
+    double square() const override;
 };
 
-
 inline std::ostream& operator<<(std::ostream& out,const Rhombus& rmb){
-    out << "Rhombus[ x:"<< rmb._x << ", y: " << rmb._y << " height: " << rmb._h << " base radius: " << rmb._r << " ];";
+    out << "RHOMBUS [ x: "<< rmb._x << ", y: " << rmb._y << " height: " << rmb._h << " base radius: " << rmb._r << " ];" << std::endl;
     return out;
 }
 
 inline std::istream& operator>>(std::istream& in, Rhombus& rmb){
     double x, y, h ,r;
+
+    std::cout << "RHOMBUS INPUT: " << std::endl;
 
     std::cout << "Enter x coord: ";
     in >> x;
