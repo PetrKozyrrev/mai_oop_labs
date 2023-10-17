@@ -10,16 +10,13 @@ class Pentagon : public Figure{
     using Figure::Figure;
 
 public:
-
     Pentagon();
-    Pentagon(double x, double y, double h, double r);
-    Pentagon(double h, double r);
+    Pentagon(double x1, double y1,double x2, double y2,double x3, double y3,double x4, double y4,double x5, double y5);
     Pentagon(const Pentagon& other);
     ~Pentagon();
 
-    // площадь пятиугольника
     explicit operator double()const override{
-        return 5 * (0.5 * (0.5 * _h) * (2 * _r));
+        return this->square();
     }
 
     Pentagon& operator= (const Pentagon& other);
@@ -31,40 +28,12 @@ public:
     void print() const override;
 
     double square() const override;
+
+    virtual void get_center() const override;
+
+private:
+    double _x5{0.0};
+    double _y5{0.0};
 };
-
-inline std::ostream& operator<<(std::ostream& out,const Pentagon& pnt){
-    out << "PENTAGON [ x: " << pnt._x << ", y: " << pnt._y << " height: " << pnt._h << " base radius: " << pnt._r << " ];" << std::endl;
-    return out;
-}
-
-inline std::istream& operator>>(std::istream& in, Pentagon& pnt){
-    double x, y, h ,r;
-
-    std::cout << "PENTAGON INPUT: " << std::endl;
-
-    std::cout << "Enter x coord: ";
-    in >> x;
-    std::cout << std::endl;
-
-    std::cout << "Enter y coord: ";
-    in >> y;
-    std::cout << std::endl;
-
-    std::cout << "Enter height: ";
-    in >> h;
-    std::cout << std::endl;
-
-    std::cout << "Enter base radius: ";
-    in >> r;
-    std::cout << std::endl;
-
-    pnt._x = x;
-    pnt._y = y;
-    pnt._h = h;
-    pnt._r = r;
-
-    return in;
-}
 
 #endif

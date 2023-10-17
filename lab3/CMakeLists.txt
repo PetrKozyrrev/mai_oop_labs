@@ -8,3 +8,11 @@ include_directories(input)
 include_directories(scr)
 
 add_executable(app main.cpp scr/Figure.cpp scr/Trapezoid.cpp scr/Rhombus.cpp scr/Pentagon.cpp)
+
+enable_testing()
+add_subdirectory(googletest)
+
+add_executable(tests tests.cpp scr/Figure.cpp scr/Trapezoid.cpp scr/Rhombus.cpp scr/Pentagon.cpp)
+
+target_link_libraries(tests PRIVATE GTest::gtest_main)
+include(GoogleTest)
