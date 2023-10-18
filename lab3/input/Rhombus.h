@@ -4,8 +4,8 @@
 
 class Rhombus : public Figure{
 
-    friend std::ostream& operator<<(std::ostream& out, const Rhombus& rmb);
-    friend std::istream& operator>>(std::istream& in, Rhombus& rmb);
+    friend std::ostream& operator << (std::ostream& out, const Rhombus& rmb);
+    friend std::istream& operator >> (std::istream& in, Rhombus& rmb);
 
     using Figure::Figure;
 
@@ -17,11 +17,11 @@ public:
         return this->square();
     };
 
-    Rhombus& operator= (const Rhombus& other);
+    Rhombus& operator = (const Rhombus& other);
 
-    Rhombus& operator= (Rhombus&& other);
+    Rhombus& operator = (Rhombus&& other);
 
-    bool operator== (Rhombus& other);
+    bool operator == (Rhombus& other);
 
     void print() const override;
 

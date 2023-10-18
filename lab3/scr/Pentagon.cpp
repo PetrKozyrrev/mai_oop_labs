@@ -1,17 +1,18 @@
 #include <cmath>
 #include "Pentagon.h"
 
+// Константа числа пи
 const double PI = acos(-1);
 
 Pentagon::Pentagon(): Figure(), _x5(0.0), _y5(0.0){};
 
 Pentagon::Pentagon(double x1, double y1,double x2, double y2,double x3, double y3,double x4, double y4,double x5, double y5)
-    :Figure(x1,y1,x2,y2,x3,y3,x4,y4), _x5(x5), _y5(y5){};
+    :Figure(x1, y1, x2, y2, x3, y3, x4, y4), _x5(x5), _y5(y5){};
 
 Pentagon::Pentagon(const Pentagon& other)
     :Figure(other._x1, other._y1, other._x2, other._y2, other._x3, other._y3, other._x4, other._y4), _x5(other._x5), _y5(other._y5){};
 
-Pentagon& Pentagon::operator= (const Pentagon& other){
+Pentagon& Pentagon::operator = (const Pentagon& other){
     if(this != & other){
         _x1 = other._x1; _y1 = other._y1;
         _x2 = other._x2; _y2 = other._y2;
@@ -22,7 +23,7 @@ Pentagon& Pentagon::operator= (const Pentagon& other){
     return *this;
 }
 
-Pentagon& Pentagon::operator= (Pentagon&& other){
+Pentagon& Pentagon::operator = (Pentagon&& other){
     if(this != & other){
         _x1 = other._x1; _y1 = other._y1;
         _x2 = other._x2; _y2 = other._y2;
@@ -33,7 +34,7 @@ Pentagon& Pentagon::operator= (Pentagon&& other){
     return *this;
 }
 
-bool Pentagon::operator== (Pentagon& other){
+bool Pentagon::operator == (Pentagon& other){
     if(_x1 == other._x1 and _y1 == other._y1 and 
        _x2 == other._x2 and _y2 == other._y2 and
        _x3 == other._x3 and _y3 == other._y3 and
@@ -44,7 +45,7 @@ bool Pentagon::operator== (Pentagon& other){
     return false;
 }
 
-std::ostream& operator<<(std::ostream& out, const Pentagon& pnt){
+std::ostream& operator <<(std::ostream& out, const Pentagon& pnt){
     out << "PENTAGON:" << std::endl 
     << "1-я вершина: ( " << pnt._x1 << ", " << pnt._y1 << " )" << std::endl 
     << "2-я вершина: ( " << pnt._x2 << ", " << pnt._y2 << " )" << std::endl
@@ -54,7 +55,7 @@ std::ostream& operator<<(std::ostream& out, const Pentagon& pnt){
     return out;
 }
 
-std::istream& operator>>(std::istream& in, Pentagon& pnt){
+std::istream& operator >>(std::istream& in, Pentagon& pnt){
     double x1, y1, x2, y2, x3, y3, x4, y4, x5, y5;
 
     std::cout << "PENTAGON INPUT: " << std::endl;
@@ -119,14 +120,25 @@ void Pentagon::print() const{
 }
 
 double Pentagon::square() const{
-    double size = sqrt((_x5 - _x1) * (_x5 - _x1) + (_y5 - _y1) * (_y5 - _y1));
-    double h = (size * 0.5) / (tan(PI/5));
+
+    /*
+        Площадь правильного пятиугольника это сумма площадей пяти треугольников
+        с основанием равным стороне пятицгольника. Если провести в нем высоту,
+        то получится угол в 36 градусов. Через тангенс угла легко найти высоту и площадь.
+    */
+
+    // Сторона правильного пятиугольника
+    double size { sqrt((_x5 - _x1) * (_x5 - _x1) + (_y5 - _y1) * (_y5 - _y1))};
+
+    // Высота треугольнка
+    double h { (size * 0.5) / (tan(PI/5))};
+
     return 5 * (0.5 * h * size);
 }
 
 void Pentagon::get_center() const{
-    double center_x = (_x5 - _x1) * 0.5;
-    double center_y = (_y3 - _y1) * 0.5;
+    double center_x { (_x5 - _x1) * 0.5};
+    double center_y { (_y3 - _y1) * 0.5};
 
     std::cout << "Pentagon center - ( " << center_x << ", " << center_y << " )" << std::endl;
 }

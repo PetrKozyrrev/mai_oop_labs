@@ -1,9 +1,11 @@
 #include <algorithm>
 #include "Trapezoid.h"
 
-Trapezoid::Trapezoid(const Trapezoid& other): Figure(other._x1, other._y1, other._x2, other._y2, other._x3, other._y3, other._x4, other._y4){};
+Trapezoid::Trapezoid(const Trapezoid& other)
+    : Figure(other._x1, other._y1, other._x2, other._y2, other._x3, other._y3, other._x4, other._y4){};
 
-Trapezoid& Trapezoid::operator= (const Trapezoid& other){
+
+Trapezoid& Trapezoid::operator = (const Trapezoid& other){
     if(this != & other){
         _x1 = other._x1; _y1 = other._y1;
         _x2 = other._x2; _y2 = other._y2;
@@ -13,7 +15,7 @@ Trapezoid& Trapezoid::operator= (const Trapezoid& other){
     return *this;
 }
 
-Trapezoid& Trapezoid::operator= (Trapezoid&& other){
+Trapezoid& Trapezoid::operator = (Trapezoid&& other){
     if(this != & other){
         _x1 = other._x1; _y1 = other._y1;
         _x2 = other._x2; _y2 = other._y2;
@@ -23,7 +25,7 @@ Trapezoid& Trapezoid::operator= (Trapezoid&& other){
     return *this;
 }
 
-bool Trapezoid::operator== (Trapezoid& other){
+bool Trapezoid::operator == (Trapezoid& other){
     if(_x1 == other._x1 and _y1 == other._y1 and 
        _x2 == other._x2 and _y2 == other._y2 and
        _x3 == other._x3 and _y3 == other._y3 and
@@ -33,7 +35,7 @@ bool Trapezoid::operator== (Trapezoid& other){
     return false;
 }
 
-std::ostream& operator<<(std::ostream& out, const Trapezoid& tr){
+std::ostream& operator << (std::ostream& out, const Trapezoid& tr){
     out << "TRAPEZOID:" << std::endl 
     << "1-я вершина: ( " << tr._x1 << ", " << tr._y1 << " )" << std::endl 
     << "2-я вершина: ( " << tr._x2 << ", " << tr._y2 << " )" << std::endl
@@ -42,7 +44,7 @@ std::ostream& operator<<(std::ostream& out, const Trapezoid& tr){
     return out;
 }
 
-std::istream& operator>>(std::istream& in, Trapezoid& tr){
+std::istream& operator >> (std::istream& in, Trapezoid& tr){
     double x1, y1, x2, y2, x3, y3, x4, y4;
 
     std::cout << "TRAPEZOID INPUT: " << std::endl;
@@ -97,26 +99,42 @@ void Trapezoid::print() const{
 }
 
 double Trapezoid::square() const{
-    double bottom_base = sqrt((_x4 - _x1) * (_x4 - _x1) + (_y4 - _y1) * (_y4 - _y1));
-    double top_base = sqrt((_x3 - _x2) * (_x3 - _x2) + (_y3 - _y2) * (_y3 - _y2));
-    double h = std::max(_y2 - _y1, _y3 - _y4);
+
+    // Нижнее основание трапеции
+    double bottom_base { sqrt((_x4 - _x1) * (_x4 - _x1) + (_y4 - _y1) * (_y4 - _y1))};
+
+    // Верхнее основание трапеции
+    double top_base { sqrt((_x3 - _x2) * (_x3 - _x2) + (_y3 - _y2) * (_y3 - _y2))};
+
+    // Высота трапеции
+    double h { std::max(_y2 - _y1, _y3 - _y4)};
+
+    // Площадь трапеции это полусумма оснований на высоту
     return 0.5 * (bottom_base + top_base) * h;
 }
 
 void Trapezoid::get_center() const{
-    double bottom_center_x = 0.5 * (_x4 - _x1);
-    double bottom_center_y = 0.5 * (_y4 - _y1);
 
-    double top_center_x = 0.5 * (_x3 - _x2);
-    double top_center_y = 0.5 * (_y3 - _y2);
+    // Середина нижнего основания трапеции
+    double bottom_center_x { 0.5 * (_x4 - _x1)};
+    double bottom_center_y { 0.5 * (_y4 - _y1)};
 
-    double len_bottom = sqrt(bottom_center_x * bottom_center_x + bottom_center_y * bottom_center_y);
+    // Середина верхнего основания трапеции
+    double top_center_x { 0.5 * (_x3 - _x2)};
+    double top_center_y { 0.5 * (_y3 - _y2)};
+
+    // Длина нижнего основания
+    double len_bottom { sqrt(bottom_center_x * bottom_center_x + bottom_center_y * bottom_center_y)};
+
+    // Длина верхнего основания
     double len_top = sqrt(top_center_x * top_center_x + top_center_y * top_center_y);
     
-    double k = len_bottom / len_top; // коэф подобия
+    // Диагонали трапеции разбивают ее на 2 подобных треугольника с коэфициентом подобия k
+    double k { len_bottom / len_top};
 
-    double res_x = 0.5 * abs(top_center_x - bottom_center_x);
-    double res_y = bottom_center_y + (k * (top_center_y + top_center_y * k) / (k+1));
+    // Геометрический центр трапеции
+    double res_x { 0.5 * abs(top_center_x - bottom_center_x)};
+    double res_y { bottom_center_y + (k * (top_center_y + top_center_y * k) / (k+1))};
 
     std::cout << "Trapezoid center - ( " << res_x << ", " << res_y << " )" << std::endl;
 }
