@@ -5,9 +5,27 @@
 
 Array::Array(): size(0), arr(nullptr){};
 
+Array::Array(const std::initializer_list<Figure*> &t){
+    arr = new Figure*[t.size()];
+    int i{0};
+    for (auto elem : t){
+        arr[i++] = elem;
+    }
+    size = t.size();
+};
+
+Array::Array(const Array& other){
+    size = other.size;
+    arr = new Figure* [size];
+
+    for(int i{0}; i < size; ++i){
+        arr[i] = other.arr[i];
+    }
+}
+
 void Array::push_back(Figure* figure) {
     Figure** temp = new Figure*[size + 1];
-    for (int i = 0; i < size; i++) {
+    for (int i{0}; i < size; ++i) {
         temp[i] = arr[i];
     }
     temp[size] = figure;
@@ -21,18 +39,8 @@ Figure* Array::operator [] (const int index) const{
     return arr[index];
 }
 
-// Figure** Array::operator = (Figure** other){
-//     Figure** temp = new Figure*[other.size()];
-
-//     for(int i{0};i<other.size();++i){
-//         temp[i] = other[i];
-//     }
-
-//     return temp;
-// }
-
 void Array::delete_elem (const int index){
-    for (int i{index}; i<size-1; ++i){
+    for (int i{index}; i< size-1; ++i){
         arr[i] = arr[i + 1];
     }
     --size;
@@ -53,7 +61,7 @@ int Array::len () const{
 }
 
 Array::~Array(){
-    if(size>0){
+    if(size > 0){
         size = 0;
         delete[] arr;
         arr = nullptr;
