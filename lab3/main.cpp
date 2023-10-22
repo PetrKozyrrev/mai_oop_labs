@@ -11,13 +11,8 @@ int main(){
     Rhombus b(0,0,0,10,10,10,10,0);
     Pentagon c(0,0,-3,10,5,20,8,5,0,10);
 
-    //Array arr{&a,&b,&c};
 
-    Array arr;
-    arr.push_back(new Trapezoid(0,0,0,10,10,10,0,10));
-    arr.push_back(new Rhombus (0,0,0,10,10,10,10,0));
-    arr.push_back(new Pentagon (0,0,-3,10,5,20,8,5,0,10));
-    arr.push_back(&a);
+    Array arr = {&a,&b,&c};
     
     for(int i{0}; i < arr.len(); ++i){
         arr[i]->print();
@@ -29,8 +24,9 @@ int main(){
      std::cout << "Общая площадь = " << arr.sum_square() << std::endl;
 
     arr.delete_elem(1);
-
-    std::cout << "DELETE RHOMBUS" << std::endl;
+    std::cout << "===============================" << std::endl;
+    std::cout << "         DELETE ELEMENT" << std::endl;
+    std::cout << "===============================" << std::endl;
 
     for(int i{0}; i < arr.len(); ++i){
         arr[i]->print();
