@@ -9,7 +9,7 @@ cmake ..
 make
 
 # Запуск Valgrind
-valgrind --leak-check=full --show-leak-kinds=all ./tests
+valgrind --leak-check=full --show-leak-kinds=all ./app
 #valgrind ./app
 
 # Очистка

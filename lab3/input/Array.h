@@ -1,5 +1,5 @@
-#ifndef ARR_H
-#define ARR_H
+#ifndef ARRAY_H
+#define ARRAY_H
 #include "Figure.h"
 
 class Array{

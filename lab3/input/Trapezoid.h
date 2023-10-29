@@ -1,5 +1,5 @@
-#ifndef TRAP_H
-#define TRAP_H
+#ifndef TRAPEZOID_H
+#define TRAPEZOID_H
 #include "Figure.h"
 
 class Trapezoid: public Figure{
@@ -27,7 +27,7 @@ public:
 
     double square() const override;
 
-    virtual void get_center() const override;
+     void get_center() const ;
 
 };
 

@@ -46,7 +46,7 @@ void Array::delete_elem (const int index){
     --size;
 }
 
-double Array::sum_square () const{
+double Array::sum_square() const {
     double sm{0.0};
 
     for(int i{0}; i < size; ++i){
@@ -56,13 +56,15 @@ double Array::sum_square () const{
     return sm;
 }
 
-int Array::len () const{
+int Array::len() const {
     return size;
 }
 
-Array::~Array(){
+Array::~Array() {
     if(size > 0){
-        size = 0;
+        // for(int i=0;i<size;++i){
+        //     delete arr[i];
+        // }
         delete[] arr;
         arr = nullptr;
     }

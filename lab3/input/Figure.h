@@ -20,19 +20,19 @@ public:
 
     ~Figure();
 
-    virtual explicit operator double()const = 0;    // Подсчет площади через перегрузку (double)
+    virtual explicit operator double()const = 0;     // Подсчет площади через перегрузку (double)
 
-    Figure& operator = (const Figure& other);        // Перегрузка операции копирования
+    Figure& operator= (const Figure& other);        // Перегрузка операции копирования
 
-    Figure& operator = (Figure&& other);             // Перегрузка операции перемещения
+    Figure& operator= (Figure&& other);             // Перегрузка операции перемещения
 
     bool operator == (Figure& other);                // Перегрузка операции сравнения
 
-    virtual void print() const = 0;                 // Печать фигуры
+    virtual void print() const = 0;                  // Печать фигуры
 
-    virtual double square() const = 0;              // Площадь фигуры
+    virtual double square() const = 0;               // Площадь фигуры
 
-    virtual void get_center() const = 0;            // Геометрический центр фигуры
+    virtual void get_center() const = 0;             // Геометрический центр фигуры
 
 protected:
 

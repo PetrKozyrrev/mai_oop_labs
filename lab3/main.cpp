@@ -10,7 +10,8 @@ int main(){
     Trapezoid a(0,0,0,10,10,10,0,10);
     Rhombus b(0,0,0,10,10,10,10,0);
     Pentagon c(0,0,-3,10,5,20,8,5,0,10);
-
+    // Figure* fig = new Pentagon();
+    // fig->get_center();
 
     Array arr = {&a,&b,&c};
     

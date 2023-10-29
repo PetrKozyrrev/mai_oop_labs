@@ -1,5 +1,5 @@
-#ifndef RHOBM_H
-#define RHOMB_H
+#ifndef RHOBMBUS_H
+#define RHOBMBUS_H
 #include "Figure.h"
 
 class Rhombus : public Figure{
@@ -27,7 +27,7 @@ public:
 
     double square() const override;
 
-    virtual void get_center() const override;
+     void get_center() const ;
 };
 
 #endif

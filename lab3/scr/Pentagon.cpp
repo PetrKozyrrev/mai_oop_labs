@@ -12,7 +12,7 @@ Pentagon::Pentagon(double x1, double y1,double x2, double y2,double x3, double y
 Pentagon::Pentagon(const Pentagon& other)
     :Figure(other._x1, other._y1, other._x2, other._y2, other._x3, other._y3, other._x4, other._y4), _x5(other._x5), _y5(other._y5){};
 
-Pentagon& Pentagon::operator = (const Pentagon& other){
+Pentagon& Pentagon::operator= (const Pentagon& other){
     if(this != & other){
         _x1 = other._x1; _y1 = other._y1;
         _x2 = other._x2; _y2 = other._y2;
@@ -23,7 +23,7 @@ Pentagon& Pentagon::operator = (const Pentagon& other){
     return *this;
 }
 
-Pentagon& Pentagon::operator = (Pentagon&& other){
+Pentagon& Pentagon::operator= (Pentagon&& other){
     if(this != & other){
         _x1 = other._x1; _y1 = other._y1;
         _x2 = other._x2; _y2 = other._y2;

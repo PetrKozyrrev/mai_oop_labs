@@ -1,5 +1,5 @@
-#ifndef PENTG_H
-#define PENTG_H
+#ifndef PENTAGON_H
+#define PENTAGON_H
 #include "Figure.h"
 
 class Pentagon : public Figure{
@@ -33,7 +33,7 @@ public:
 
     double square() const override;
 
-    virtual void get_center() const override;
+    void get_center() const override;
 
 private:
 
