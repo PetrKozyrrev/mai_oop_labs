@@ -49,20 +49,13 @@ public:
         return _size;
     }
 
-    // void push_back(std::shared_ptr<T> elem){
-    //     if(_size == _capable){
-    //         _capable *= 2;
-    //         std::shared_ptr<T[]> tmp = std::shared_ptr<T[]>(new T[_capable]);
-    //         for(size_t i{0}; i < _size; ++i){
-    //             tmp[i] = _array[i];
-    //         }
-    //         _array = std::shared_ptr<T[]>(new T[_capable]);
-    //         _array = tmp;
-    //     }
-    //     _array[++_size] = elem;
-    // }
+    void delete_elem (const int index){
+        for(int i{index}; i < _size - 1; ++i){
+            _array[i] = _array[i + 1];
+        }
+        --_size;
+    }
 
-    
 
 private:
     size_t _size;
