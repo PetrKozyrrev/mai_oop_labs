@@ -7,60 +7,99 @@
 template <class T>
 class Array{
 public:
-    Array() : _size(0), _capable(10), _array{nullptr}{}
+    Array();
 
-    Array(const std::initializer_list<T> &t){
-        _capable = t.size() * 2;
-        _array = std::shared_ptr<T[]>(new T[_capable]);
-        _size = t.size();
-        size_t i{0};
-        for (auto &c : t)
-            _array[i++] = c;
-    }
+    Array(int size);
 
-    Array(const Array &other){
-        _capable = other._capable;
-         _size = other._size;   
-        _array = std::shared_ptr<T[]>(new T[_capable]);
+    Array(const Array &other);
 
-        for (size_t i{0}; i < _size; ++i)
-            _array[i] = other._array[i];
-    }
+    Array(Array &&other);
 
-    Array(Array &&other){
-        _capable = other._capable;
-        _size = other._size;
-        _array = other._array;
+    ~Array();
 
-        other._capable = 0;
-        other._size = 0;
-        other._array = nullptr;
-    }
+    T* operator[](size_t index);
 
-    ~Array(){
-        std::cout << "destructor:" << _array.use_count() << std::endl;
-    }
+    size_t size() const;
 
-    T& operator[](size_t index){
-        return _array[index];
-    }
+    void delete_elem (int index);
 
-    size_t size() const{
-        return _size;
-    }
-
-    void delete_elem (const int index){
-        for(int i{index}; i < _size - 1; ++i){
-            _array[i] = _array[i + 1];
-        }
-        --_size;
-    }
-
+    void push_back(T* elem);
 
 private:
     size_t _size;
     size_t _capable;
-    std::shared_ptr<T[]> _array;
+    std::unique_ptr<T*> _array;
 };
+
+template <class T>
+inline Array<T>::Array(){
+    _capable = 10;
+    _size = 0;
+    _array.reset(new T*[_capable]);
+
+    for (size_t i = 0; i < _capable; ++i)
+        _array.get()[i] = nullptr;
+}
+
+template <class T>
+inline Array<T>::Array(int size) {
+    _capable = size * 2;
+    _size = 0;
+    _array.reset(new T*[_capable]);
+
+    for (size_t i = 0; i != _capable; ++i)
+        _array.get()[i] = nullptr;
+}
+
+template <class T>
+inline Array<T>::Array(const Array &other){
+    _capable = other._capable;
+    _size = other._size;   
+    _array.reset(new T*[_capable]);
+
+    for (size_t i{0}; i < _size; ++i)
+        _array.get()[i] = other._array.get()[i];
+}
+
+template <class T>
+inline Array<T>::Array(Array &&other){
+    _capable = other._capable;
+    _size = other._size;
+    _array = other._array;
+
+    other._capable = 0;
+    other._size = 0;
+    other._array = nullptr;
+}
+
+template <class T>
+inline T* Array<T>::operator[](size_t index){
+    return _array.get()[index];
+}
+
+template <class T>
+inline size_t Array<T>::size() const{
+    return _size;
+}
+
+template <class T>
+inline void Array<T>::delete_elem(int index){
+    for(int i{index}; i < _size - 1; ++i){
+        _array.get()[i] = _array.get()[i + 1];
+    }
+    --_size;
+}
+
+template <class T>
+inline void Array<T>::push_back(T* elem){
+    _array.get()[_size++] = elem;
+}
+
+template <class T>
+inline Array<T>::~Array(){
+    //_array.release();
+    _size = 0;
+    _capable = 0;
+}
 
 #endif // ARRAY_H

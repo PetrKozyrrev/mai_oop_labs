@@ -1,26 +1,42 @@
 #include <iostream>
 #include <memory>
+
 #include "Array.h"
 #include "Figure.h"
 #include "Trapezoid.h"
 #include "Rhombus.h"
 #include "Pentagon.h"
+#include "Functions.h"
 
+#define pii std::pair<int,int>
 
 int main(){
-    Trapezoid<int> a(std::pair(1,1),std::pair(2,2),std::pair(3,3),std::pair(4,4));
-    Rhombus<int> b(std::pair(10,10),std::pair(20,20),std::pair(30,30),std::pair(40,40));
-    Pentagon<int> c(std::pair(100,100),std::pair(200,200),std::pair(300,300),std::pair(400,400),std::pair(500,500));
+    Trapezoid<int> a(pii(1,1),pii(2,2),pii(3,3),pii(4,4));
+    Rhombus<int> b(pii(10,10),pii(20,20),pii(30,30),pii(40,40));
+    Pentagon<int> c(pii(100,100),pii(200,200),pii(300,300),pii(400,400),pii(500,500));
 
-    std::shared_ptr<Trapezoid<int>> a_ptr = std::make_shared<Trapezoid<int>>(std::pair(1,1),std::pair(2,2),std::pair(3,3),std::pair(4,4));
-    std::shared_ptr<Rhombus<int>> b_ptr = std::make_shared<Rhombus<int>>(std::pair(10,10),std::pair(20,20),std::pair(30,30),std::pair(40,40));
-    std::shared_ptr<Pentagon<int>> c_ptr = std::make_shared<Pentagon<int>>(std::pair(100,100),std::pair(200,200),std::pair(300,300),std::pair(400,400),std::pair(500,500));
+    Array<Figure> arr;    
+    arr.push_back(&a);
+    arr.push_back(&b);
+    arr.push_back(&c);
 
-    Array<std::shared_ptr<Figure<int>>> arr{a_ptr,b_ptr,c_ptr};
+    for(int i{0}; i < arr.size(); ++i){
+        Figure* f = arr[i];
 
-    for(int i{0}; i< arr.size(); ++i){
-        arr[i]->print();
-        arr[i]->get_center();
-        std::cout << arr[i]->square() << std::endl;
+        if (f == nullptr) {
+            std::cout << "The figure has been deleted" << std::endl;
+        } else if (typeid(Trapezoid<int>) == typeid(*f)) {
+            get_center<Trapezoid<int>, int>(*(Trapezoid<int>*)f);
+            print<Trapezoid<int>>(*(Trapezoid<int>*)f);
+            std::cout << "Square Trapezoid = " << square<Trapezoid<int>, int>(*(Trapezoid<int>*)f) << std::endl;
+        } else if (typeid(Rhombus<int>) == typeid(*f)) {
+            get_center<Rhombus<int>, int>(*(Rhombus<int>*)f);
+            print<Rhombus<int>>(*(Rhombus<int>*)f);
+            std::cout << "Square Rhombus = " << square<Rhombus<int>, int>(*(Rhombus<int>*)f) << std::endl;
+        } else if (typeid(Pentagon<int>) == typeid(*f)) {
+            get_center<Pentagon<int>, int>(*(Pentagon<int>*)f);
+            print<Pentagon<int>>(*(Pentagon<int>*)f);
+            std::cout << "Square Pentagon = " << square<Pentagon<int>, int>(*(Pentagon<int>*)f) << std::endl;
+        }
     }
 }

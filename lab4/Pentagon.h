@@ -2,13 +2,14 @@
 #define PENTAGON_H
 
 #include "Figure.h"
-#include <cmath>
 
 template <class T>
-class Pentagon : public Figure<T>{
+class Pentagon : public Figure{
 public:
 
     using ptt = std::pair<T,T>;
+
+    ptt _c1, _c2, _c3, _c4, _c5;
 
     Pentagon() = default;
     Pentagon(ptt a, ptt b, ptt c, ptt d,ptt e) : _c1(a), _c2(b), _c3(c), _c4(d), _c5(e){};
@@ -22,17 +23,6 @@ public:
 
     bool operator== (Pentagon<T>& other);
 
-    operator double(){
-        return this->square();
-    };
-
-    void print();
-
-    void get_center();
-
-    double square();
-
-    ptt _c1, _c2, _c3, _c4, _c5;
 };
 
 template <class T>
@@ -69,7 +59,7 @@ std::istream& operator>>(std::istream &in, Pentagon<T> &pnt){
 }
 
 template <class T>
-Pentagon<T>& Pentagon<T>::operator= (const Pentagon<T>& other){
+inline Pentagon<T>& Pentagon<T>::operator= (const Pentagon<T>& other){
     if(this != &other){
         _c1 = other._c1;
         _c2 = other._c2;
@@ -80,7 +70,7 @@ Pentagon<T>& Pentagon<T>::operator= (const Pentagon<T>& other){
 }
 
 template <class T>
-Pentagon<T>& Pentagon<T>::operator= (Pentagon<T>&& other){
+inline Pentagon<T>& Pentagon<T>::operator= (Pentagon<T>&& other){
     if(this != &other){
         _c1 = other._c1;
         _c2 = other._c2;
@@ -91,41 +81,11 @@ Pentagon<T>& Pentagon<T>::operator= (Pentagon<T>&& other){
 }
 
 template <class T>
-bool Pentagon<T>::operator== (Pentagon<T>& other){
+inline bool Pentagon<T>::operator== (Pentagon<T>& other){
     if(_c1 == other._c1 and _c2 == other._c2 and _c3 == other._c3 and _c4 == other._c4){
         return true;
     }
     return false;
-}
-
-template <class T>
-void Pentagon<T>::print(){
-    std::cout << "PENTAGON:" << std::endl 
-    << "1-я вершина: ( " << _c1.first << ", " << _c1.second << " )" << std::endl 
-    << "2-я вершина: ( " << _c2.first << ", " << _c2.second << " )" << std::endl
-    << "3-я вершина: ( " << _c3.first << ", " << _c3.second << " )" << std::endl
-    << "4-я вершина: ( " << _c4.first << ", " << _c4.second << " )" << std::endl
-    << "5-я вершина: ( " << _c5.first << ", " << _c5.second << " )" << std::endl;
-}
-
-template <class T>
-void Pentagon<T>::get_center(){
-    std::pair<T,T> res;
-    res.first = (_c5.first - _c1.first) / 2;
-    res.second = (_c3.second - _c1.second) / 2;
-
-    std::cout << "Center - (" << res.first << ", " << res.second << ")" << std::endl;
-}
-
-template <class T>
-double Pentagon<T>::square(){
-    double PI = acos(-1);
-    T _x1 = _c1.first, _x5 = _c5.first;
-    T _y1 = _c1.first, _y5 = _c5.first;
-    double size { sqrt((_x5 - _x1) * (_x5 - _x1) + (_y5 - _y1) * (_y5 - _y1))};
-    double h { (size * 0.5) / (tan(PI/5))};
-
-    return 5 * (0.5 * h * size);
 }
 
 #endif // PENTAGON_H
