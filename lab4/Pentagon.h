@@ -1,6 +1,7 @@
 #ifndef PENTAGON_H
 #define PENTAGON_H
 
+#include <cmath>
 #include "Figure.h"
 
 template <class T>
@@ -17,12 +18,22 @@ public:
     Pentagon(const Pentagon<T> &&other) : _c1(other._c1), _c2(other._c2), _c3(other._c3), _c4(other._c4), _c5(other._c5){};
     ~Pentagon() = default;
 
-    Pentagon<T>& operator= (const Pentagon<T>& other);
+    Pentagon<T>& operator=(const Pentagon<T>& other);
 
-    Pentagon<T>& operator= (Pentagon<T>&& other);
+    Pentagon<T>& operator=(const Pentagon<T>&& other);
 
-    bool operator== (Pentagon<T>& other);
+    bool operator==(const Pentagon<T>& other);
 
+    explicit operator double() const override{
+        T _x1 = this->_c1.first, _x2 = this->_c2.first,_x3 = this->_c3.first, _x4 = this->_c4.first;
+        T _y1 = this->_c1.second, _y2 = this->_c2.second,_y3 = this->_c3.second, _y4 = this->_c4.second;
+        double bottom_base { sqrt((_x4 - _x1) * (_x4 - _x1) + (_y4 - _y1) * (_y4 - _y1))};
+        double top_base { sqrt((_x3 - _x2) * (_x3 - _x2) + (_y3 - _y2) * (_y3 - _y2))};
+
+        T h {std::max(_y2 - _y1, _y3 - _y4)};
+
+        return 0.5 * (bottom_base + top_base) * h;
+    } 
 };
 
 template <class T>
@@ -59,7 +70,7 @@ std::istream& operator>>(std::istream &in, Pentagon<T> &pnt){
 }
 
 template <class T>
-inline Pentagon<T>& Pentagon<T>::operator= (const Pentagon<T>& other){
+inline Pentagon<T>& Pentagon<T>::operator=(const Pentagon<T>& other){
     if(this != &other){
         _c1 = other._c1;
         _c2 = other._c2;
@@ -70,7 +81,7 @@ inline Pentagon<T>& Pentagon<T>::operator= (const Pentagon<T>& other){
 }
 
 template <class T>
-inline Pentagon<T>& Pentagon<T>::operator= (Pentagon<T>&& other){
+inline Pentagon<T>& Pentagon<T>::operator=(const Pentagon<T>&& other){
     if(this != &other){
         _c1 = other._c1;
         _c2 = other._c2;
@@ -81,7 +92,7 @@ inline Pentagon<T>& Pentagon<T>::operator= (Pentagon<T>&& other){
 }
 
 template <class T>
-inline bool Pentagon<T>::operator== (Pentagon<T>& other){
+inline bool Pentagon<T>::operator==(const Pentagon<T>& other){
     if(_c1 == other._c1 and _c2 == other._c2 and _c3 == other._c3 and _c4 == other._c4){
         return true;
     }

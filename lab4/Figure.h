@@ -7,12 +7,8 @@ class Figure{
    public:
     Figure() = default;
     virtual ~Figure() = default;
-};
 
-std::ostream& operator<<(std::ostream &out, const Figure &fig){
-    out << "FIGURE:" << std::endl;
-    
-    return out;
+    virtual explicit operator double() const = 0;
 };
 
 #endif // FIGURE_H
