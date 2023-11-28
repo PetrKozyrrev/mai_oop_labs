@@ -9,13 +9,13 @@ class NPC;
 class IObserver{
 public:
     IObserver() = default;
-     virtual void on_fight(std::shared_ptr<NPC> attacker,std::shared_ptr<NPC> defender, bool win) = 0;
+     virtual void on_fight(NPC*attacker,NPC* defender, bool win) = 0;
 };
 
 class ConsoleObserver: public IObserver {
 public:
     ConsoleObserver() = default;
-    void on_fight(std::shared_ptr<NPC> attacker,std::shared_ptr<NPC> defender, bool win) override;
+    void on_fight(NPC* attacker,NPC* defender, bool win) override;
 };
 
 class FileObserver: public IObserver {
@@ -27,5 +27,5 @@ public:
     FileObserver(FileObserver &other);
     FileObserver(FileObserver &&other);
     ~FileObserver();
-    void on_fight(std::shared_ptr<NPC> attacker,std::shared_ptr<NPC> defender, bool win) override;
+    void on_fight(NPC* attacker,NPC* defender, bool win) override;
 };

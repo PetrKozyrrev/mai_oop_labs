@@ -3,11 +3,13 @@
 
 struct Knight : public NPC
 {
-    Knight(int x, int y);
-    Knight(std::ifstream &is);
+    Knight(int x, int y,std::string &_name);
+    Knight(std::ifstream &is,std::string &_name);
 
     void print() override;
     void save(std::ofstream &os) override;
+
+    void get_name(std::ofstream &os) override;
 
     void accept(std::shared_ptr<NPC> attacker,Visitor& visitor);
 

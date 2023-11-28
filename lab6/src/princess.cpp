@@ -3,19 +3,22 @@
 #include "../input/princess.h"
 #include <algorithm>
 
-Princess::Princess(int x, int y) : NPC(PrincessType, x, y) {}
+Princess::Princess(int x, int y,std::string &_name) :  NPC(PrincessType, x, y, _name) {}
 
-Princess::Princess(std::ifstream &is) : NPC(PrincessType, is) {}
+Princess::Princess(std::ifstream &is,std::string &_name) : NPC(PrincessType, is, _name) {}
 
 void Princess::print()
 {
     std::cout << *this;
 }
 
-void Princess::save(std::ofstream &os)
-{
+void Princess::save(std::ofstream &os){
     os << PrincessType << std::endl;
     NPC::save(os);
+}
+
+void Princess::get_name(std::ofstream &os){
+    os << this->name << " " << "{x: " << this->x << "; y:" << this->y << "}" << std::endl;
 }
 
 void Princess::attach(std::shared_ptr<IObserver> observer) {

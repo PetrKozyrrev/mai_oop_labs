@@ -4,12 +4,14 @@
 
 struct Dragon : public NPC
 {
-    Dragon(int x, int y);
-    Dragon(std::ifstream &is);
+    Dragon(int x, int y,std::string &_name);
+    Dragon(std::ifstream &is,std::string &_name);
 
     void print() override;
 
     void accept(std::shared_ptr<NPC> attacker,Visitor& visitor);
+
+    void get_name(std::ofstream &os) override;
 
     void attach(std::shared_ptr<IObserver> observer) override;
     void detach(std::shared_ptr<IObserver> observer) override;

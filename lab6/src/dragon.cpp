@@ -3,9 +3,9 @@
 #include "../input/princess.h"
 #include <algorithm>
 
-Dragon::Dragon(int x, int y) : NPC(DragonType, x, y) {}
+Dragon::Dragon(int x, int y,std::string &_name) : NPC(DragonType, x, y, _name) {}
 
-Dragon::Dragon(std::ifstream &is) : NPC(DragonType, is) {}
+Dragon::Dragon(std::ifstream &is,std::string &_name) : NPC(DragonType, is, _name) {}
 
 void Dragon::print()
 {
@@ -23,6 +23,10 @@ void Dragon::save(std::ofstream &os)
 {
     os << DragonType << std::endl;
     NPC::save(os);
+}
+
+void Dragon::get_name(std::ofstream &os){
+    os << this->name << " " << "{x: " << this->x << "; y:" << this->y << "}" << std::endl;
 }
 
 std::ostream &operator<<(std::ostream &os, Dragon &dragon)

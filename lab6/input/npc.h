@@ -24,16 +24,18 @@ class NPC{
 public:
     NpcType type;
     int x{0}, y{0};
+    std::string name;
     std::vector<std::shared_ptr<IObserver>> observers;
 
-    NPC(NpcType t, int _x, int _y);
-    NPC(NpcType t,std::ifstream &is);
+    NPC(NpcType t, int _x, int _y,std::string &_name);
+    NPC(NpcType t,std::ifstream &is,std::string &_name);
     NPC(NPC& other);
     NPC(NPC* other);
 
     bool is_close(const std::shared_ptr<NPC> &other, size_t distance) const;
-    virtual void notify(const std::shared_ptr<NPC> attacker, bool win);
+    virtual void notify(NPC* attacker, bool win);
 
+    virtual void get_name(std::ofstream &os){};
     virtual void accept(std::shared_ptr<NPC> attacker,Visitor& visitor){};
     virtual void attach(std::shared_ptr<IObserver> observer){};
     virtual void detach(std::shared_ptr<IObserver> observer){};

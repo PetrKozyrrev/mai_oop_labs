@@ -4,24 +4,34 @@
 #include "input/princess.h"
 
 bool success;
+int cnt_p = 0;
+int cnt_d = 0;
+int cnt_k = 0;
 
 // Фабрики -----------------------------------
 std::shared_ptr<NPC>factory(std::ifstream &is)
 {
     std::shared_ptr<NPC> result;
+    std::string name;
     int type{0};
     if (is >> type)
     {
         switch (type)
         {
         case DragonType:
-            result = std::make_shared<Dragon>(is);
+            ++cnt_d;
+            name = "Dragon_№" + std::to_string(cnt_d);
+            result = std::make_shared<Dragon>(is,name);
             break;
         case KnightType:
-            result = std::make_shared<Knight>(is);
+            ++cnt_k;
+            name = "Knight_№" + std::to_string(cnt_k);
+            result = std::make_shared<Knight>(is,name);
             break;
         case PrincessType:
-            result = std::make_shared<Princess>(is);
+            ++cnt_p;
+            name = "Princess_№" + std::to_string(cnt_p);
+            result = std::make_shared<Princess>(is,name);
             break;
         }
     }
@@ -34,16 +44,22 @@ std::shared_ptr<NPC>factory(std::ifstream &is)
 std::shared_ptr<NPC> factory(NpcType type, int x, int y)
 {
     std::shared_ptr<NPC> result;
-    switch (type)
-    {
+    std::string name;
+    switch (type){
     case DragonType:
-        result = std::make_shared<Dragon>(x, y);
+        ++cnt_d;
+        name = "Dragon_№" + std::to_string(cnt_d);
+        result = std::make_shared<Dragon>(x, y,name);
         break;
     case KnightType:
-        result = std::make_shared<Knight>(x, y);
+        ++cnt_k;
+        name = "Knight_№" + std::to_string(cnt_k);
+        result = std::make_shared<Knight>(x, y,name);
         break;
     case PrincessType:
-        result = std::make_shared<Princess>(x, y);
+        ++cnt_p;
+        name = "Princess_№" + std::to_string(cnt_p);
+        result = std::make_shared<Princess>(x, y,name);
         break;
     default:
         break;
@@ -148,7 +164,7 @@ set_t fight(const set_t &array, size_t distance,Visitor& visitor)
                 success = false;
                 defender->accept(attacker,visitor);
                 if (success){
-                    defender->notify(attacker,true);
+                    defender->notify(attacker.get(),true);
                     dead_list.insert(defender);
                 }
             }
@@ -171,6 +187,10 @@ int main()
     
     std::cout << "Saving ..." << std::endl;
     file_save(array, START_FILENAME);
+
+    cnt_d = 0;
+    cnt_k = 0;
+    cnt_p = 0;
 
     std::cout << "Loading ..." << std::endl;
     array = load(START_FILENAME);
@@ -196,14 +216,14 @@ int main()
         for (auto &d : dead_list)
             array.erase(d);
         
-        std::cout << "Fight stats ----------" << std::endl
+        std::cout << std::endl <<  "========== Fight stats ==========" << std::endl
                   << "distance: " << distance << std::endl
                   << "killed: " << dead_list.size() << std::endl
                   << std::endl << std::endl;
 
     }
 
-    std::cout << "Survivors:" << array;
+    std::cout << std::endl << "Survivors:" << array;
 
     return 0;
 }

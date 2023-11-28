@@ -1,8 +1,8 @@
 #include "../input/npc.h"
 
-NPC::NPC(NpcType t, int _x, int _y) : type(t), x(_x), y(_y) {}
+NPC::NPC(NpcType t, int _x, int _y,std::string &_name) : type(t), x(_x), y(_y), name(_name) {}
 
-NPC::NPC(NpcType t,std::ifstream &is): type(t)
+NPC::NPC(NpcType t,std::ifstream &is,std::string &_name): type(t), name(_name)
 {
     is >> x;
     is >> y;
@@ -12,11 +12,11 @@ NPC::NPC(NPC& other) : type(other.type), x(other.x),y(other.y){}
 
 NPC::NPC(NPC* other) : type(other->type), x(other->x),y(other->y){}
 
-void NPC::notify(const std::shared_ptr<NPC> attacker, bool win) {
-    const std::shared_ptr<NPC> defender = std::make_shared<NPC>(this);
+void NPC::notify(NPC* attacker, bool win) {
+    //std::shared_ptr<NPC> defender = std::make_shared<NPC>(*this);
     if (win) {
         for (auto &elem : NPC::observers) {
-            elem->on_fight(defender, attacker, win);
+            elem->on_fight(attacker,this, win);
         }
     }
 }
@@ -37,6 +37,6 @@ void NPC::save(std::ofstream &os)
 
 std::ostream &operator<<(std::ostream &os, NPC &npc)
 {
-    os << "{ x:" << npc.x << ", y:" << npc.y << "} ";
+    os << "name = " << npc.name << " { x:" << npc.x << ", y:" << npc.y << "} ";
     return os;
 }

@@ -3,9 +3,9 @@
 #include "../input/princess.h"
 #include <algorithm>
 
-Knight::Knight(int x, int y) : NPC(KnightType, x, y) {}
+Knight::Knight(int x, int y,std::string &_name) : NPC(KnightType, x, y,_name) {}
 
-Knight::Knight(std::ifstream &is) : NPC(KnightType, is) {}
+Knight::Knight(std::ifstream &is,std::string &_name) : NPC(KnightType, is, _name) {}
 
 void Knight::print()
 {
@@ -16,6 +16,10 @@ void Knight::save(std::ofstream &os)
 {
     os << KnightType << std::endl;
     NPC::save(os);
+}
+
+void Knight::get_name(std::ofstream &os){
+    os << this->name << " " << "{x: " << this->x << "; y:" << this->y << "}" << std::endl;
 }
 
 void Knight::attach(std::shared_ptr<IObserver> observer) {

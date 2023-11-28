@@ -1,10 +1,12 @@
 #include "../input/observer.h"
 #include "../input/npc.h"
 
-void ConsoleObserver::on_fight(std::shared_ptr<NPC> attacker,std::shared_ptr<NPC> defender, bool win) {
+void ConsoleObserver::on_fight(NPC* attacker,NPC* defender, bool win) {
     if (win){
-        std::cout << std::endl << "Murder --------" << std::endl;
+        std::cout << std::endl << "-------- Murder --------" << std::endl;
+        std::cout << "attaker -> ";
         attacker->print();
+        std::cout << "defender -> ";
         defender->print();
     }
 }
@@ -21,12 +23,14 @@ FileObserver::~FileObserver(){
     in.close();
 }
 
-void FileObserver::on_fight(std::shared_ptr<NPC> attacker,std::shared_ptr<NPC> defender, bool win) {
+void FileObserver::on_fight(NPC* attacker,NPC* defender, bool win) {
     if(in.is_open()){
         if (win){
-            in << std::endl << "Murder --------" << std::endl;
-            attacker->save(in);
-            defender->save(in);
+            in << std::endl << "-------- Murder --------" << std::endl;
+            in << "attaker -> ";
+            attacker->get_name(in);
+            in << "defender -> ";
+            defender->get_name(in);
         }
     }
     

@@ -4,11 +4,13 @@
 
 struct Princess : public NPC
 {
-    Princess(int x, int y);
-    Princess(std::ifstream &is);
+    Princess(int x, int y,std::string &_name);
+    Princess(std::ifstream &is,std::string &_name);
 
     void print() override;
     void save(std::ofstream &os) override;
+
+    void get_name(std::ofstream &os) override;
 
     void accept(std::shared_ptr<NPC> attacker,Visitor& visitor);
 
