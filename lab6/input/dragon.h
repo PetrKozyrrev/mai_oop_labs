@@ -1,4 +1,5 @@
-#pragma once
+#ifndef DRAGON_H
+#define DRAGON_H
 
 #include "npc.h"
 
@@ -20,3 +21,5 @@ struct Dragon : public NPC
 
     friend std::ostream &operator<<(std::ostream &os, Dragon &dragon);
 };
+
+#endif // DRAGON_H

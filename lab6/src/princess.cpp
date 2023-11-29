@@ -7,6 +7,8 @@ Princess::Princess(int x, int y,std::string &_name) :  NPC(PrincessType, x, y, _
 
 Princess::Princess(std::ifstream &is,std::string &_name) : NPC(PrincessType, is, _name) {}
 
+Princess::~Princess() {}
+
 void Princess::print()
 {
     std::cout << *this;

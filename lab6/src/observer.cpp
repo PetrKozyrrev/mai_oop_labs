@@ -1,6 +1,8 @@
 #include "../input/observer.h"
 #include "../input/npc.h"
 
+IObserver::~IObserver(){}
+
 void ConsoleObserver::on_fight(NPC* attacker,NPC* defender, bool win) {
     if (win){
         std::cout << std::endl << "-------- Murder --------" << std::endl;

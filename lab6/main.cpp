@@ -4,11 +4,11 @@
 #include "input/princess.h"
 
 bool success;
-int cnt_p = 0;
-int cnt_d = 0;
-int cnt_k = 0;
+int cnt_p{0};
+int cnt_d{0};
+int cnt_k{0};
 
-// Фабрики -----------------------------------
+// Фабрика из файла
 std::shared_ptr<NPC>factory(std::ifstream &is)
 {
     std::shared_ptr<NPC> result;
@@ -41,6 +41,7 @@ std::shared_ptr<NPC>factory(std::ifstream &is)
     return result;
 }
 
+// Фабрика
 std::shared_ptr<NPC> factory(NpcType type, int x, int y)
 {
     std::shared_ptr<NPC> result;
@@ -67,7 +68,7 @@ std::shared_ptr<NPC> factory(NpcType type, int x, int y)
     return result;
 }
 
-// save array to file
+// Сохранить в файл
 void file_save(const set_t &array, const std::string &filename)
 {
     std::ofstream fs;
@@ -83,6 +84,8 @@ void file_save(const set_t &array, const std::string &filename)
     }
 }
 
+
+// Загрузить из файла
 set_t load(const std::string &filename)
 {
     set_t result;
@@ -101,7 +104,7 @@ set_t load(const std::string &filename)
     return result;
 }
 
-// print to screen
+// Печать на экран
 std::ostream &operator<<(std::ostream &os, const set_t &array)
 {
     for (auto &n : array)

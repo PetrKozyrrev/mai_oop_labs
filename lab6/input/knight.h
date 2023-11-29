@@ -1,4 +1,6 @@
-#pragma once
+#ifndef KNIGHT_H
+#define KNIGHT_H
+
 #include "npc.h"
 
 struct Knight : public NPC
@@ -18,3 +20,5 @@ struct Knight : public NPC
     
     friend std::ostream &operator<<(std::ostream &os, Knight &knight);
 };
+
+#endif // KNIGHT_H

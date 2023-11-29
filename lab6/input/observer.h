@@ -1,4 +1,5 @@
-#pragma once
+#ifndef OBSERVER_H
+#define OBSERVER_H
 
 #include <iostream>
 #include <memory>
@@ -9,6 +10,7 @@ class NPC;
 class IObserver{
 public:
     IObserver() = default;
+    virtual ~IObserver();
      virtual void on_fight(NPC*attacker,NPC* defender, bool win) = 0;
 };
 
@@ -29,3 +31,5 @@ public:
     ~FileObserver();
     void on_fight(NPC* attacker,NPC* defender, bool win) override;
 };
+
+#endif // OBSERVER_H

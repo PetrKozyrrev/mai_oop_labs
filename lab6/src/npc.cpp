@@ -12,6 +12,8 @@ NPC::NPC(NPC& other) : type(other.type), x(other.x),y(other.y){}
 
 NPC::NPC(NPC* other) : type(other->type), x(other->x),y(other->y){}
 
+NPC::~NPC(){}
+
 void NPC::notify(NPC* attacker, bool win) {
     //std::shared_ptr<NPC> defender = std::make_shared<NPC>(*this);
     if (win) {

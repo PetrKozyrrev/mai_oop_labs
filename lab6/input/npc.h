@@ -1,4 +1,5 @@
-#pragma once
+#ifndef NPC_H
+#define NPC_H
 
 #include <iostream>
 #include <memory>
@@ -31,9 +32,10 @@ public:
     NPC(NpcType t,std::ifstream &is,std::string &_name);
     NPC(NPC& other);
     NPC(NPC* other);
+    virtual ~NPC();
 
     bool is_close(const std::shared_ptr<NPC> &other, size_t distance) const;
-    virtual void notify(NPC* attacker, bool win);
+    void notify(NPC* attacker, bool win);
 
     virtual void get_name(std::ofstream &os){};
     virtual void accept(std::shared_ptr<NPC> attacker,Visitor& visitor){};
@@ -46,3 +48,4 @@ public:
     friend std::ostream &operator<<(std::ostream &os, NPC &npc);
 };
 
+#endif //NPC_H
