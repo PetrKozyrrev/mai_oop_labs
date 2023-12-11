@@ -220,6 +220,7 @@ public:
 
 int main()
 {
+    //srand(time(NULL));
     set_t array; 
 
     const int MAX_X{100};
@@ -227,7 +228,7 @@ int main()
     const int DISTANCE{40};
 
     std::cout << "Generating ..." << std::endl;
-    for (size_t i = 0; i < 10; ++i)
+    for (size_t i = 0; i < 50; ++i)
         array.insert(factory(NpcType(std::rand() % 3 + 1),
                              std::rand() % MAX_X,
                              std::rand() % MAX_Y));
@@ -244,8 +245,8 @@ int main()
                 for (std::shared_ptr<NPC> npc : array)
                 {
                         if(npc->is_alive()){
-                            int shift_x = std::rand() % 5 - 2;
-                            int shift_y = std::rand() % 5 - 2;
+                            int shift_x = std::rand() % 20 - 10;
+                            int shift_y = std::rand() % 20 - 10;
                             npc->move(shift_x, shift_y, MAX_X, MAX_Y);
                         }
                 }
@@ -262,7 +263,7 @@ int main()
 
     while (true)
     {
-        const int grid{5}, step_x{MAX_X / grid}, step_y{MAX_Y / grid};
+        const int grid{20}, step_x{MAX_X / grid}, step_y{MAX_Y / grid};
         {
             std::array<char, grid * grid> fields{0};
             for (std::shared_ptr<NPC> npc : array)
@@ -282,7 +283,7 @@ int main()
                         fields[i + grid * j] = 'K';
                         break;
                     case PrincessType:
-                        fields[i + grid * j] = 'B';
+                        fields[i + grid * j] = 'P';
                         break;
 
                     default:

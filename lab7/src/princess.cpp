@@ -23,19 +23,19 @@ void Princess::save(std::ostream &os)
 
 bool Princess::fight(std::shared_ptr<Dragon> other)
 {
-    fight_notify(other, true);
+    fight_notify(other, false);
     return true;
 }
 
 bool Princess::fight(std::shared_ptr<Knight> other)
 {
-    fight_notify(other, true);
+    fight_notify(other, false);
     return true;
 }
 
 bool Princess::fight(std::shared_ptr<Princess> other)
 {
-    fight_notify(other, true);
+    fight_notify(other, false);
     return true;
 }
 

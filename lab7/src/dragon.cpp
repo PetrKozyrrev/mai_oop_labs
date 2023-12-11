@@ -29,7 +29,7 @@ bool Dragon::fight(std::shared_ptr<Knight> other)
 
 bool Dragon::fight(std::shared_ptr<Princess> other) 
 {
-    fight_notify(other, false);
+    fight_notify(other, true);
     return false;
 }
 
